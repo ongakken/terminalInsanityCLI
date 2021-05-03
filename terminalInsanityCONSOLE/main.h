@@ -10,11 +10,13 @@
 #endif
 #include <cstdio>
 #include <iostream>
+#include <fstream>
 
 class core
 {
 public:
 	int init();
+	int lvl1();
 };
 
 
