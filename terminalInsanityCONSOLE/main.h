@@ -3,6 +3,8 @@
 
 #pragma once
 
+using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
+
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -18,6 +20,7 @@ public:
 	int init();
 	int boot();
 	int lvl1();
+	void iterateOverString();
 };
 
 

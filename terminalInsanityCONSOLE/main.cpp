@@ -4,7 +4,7 @@
 
 #include "main.h"
 
-using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
+//using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
 int main()
 {
@@ -14,6 +14,11 @@ int main()
 	Core.boot();
 	Core.lvl1();
     return 0;
+}
+
+void core::iterateOverString()
+{
+
 }
 
 int core::init()
@@ -101,5 +106,6 @@ int core::lvl1()
 	cout << "\n";
 	sleep(3);
 	system("printf '%s' '\e[36mJ3ff:\e[0m' && printf ' So how are we gonna do it?\n' | pv -qL 9");
+
 	sleep(9);
 }
