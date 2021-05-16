@@ -26,6 +26,7 @@ public:
 	void init(); // this method checks the runtime dependencies and verifies if all dirs are existing; if not, it creates them. we also play the intro seq here
 	void boot(); // this method runs the simulated boot seq of the in-game computer
 	void lvl1(); // level methods -- these run code relevant for each level of the game
+	void lvl2();
 	string cmdInput; // command input the player will enter while having access to an interactive shell - this value will be processed and evaluated to see if the command entered exists
 	string playerMsg; // a string to be iterated over using the iterateOverString method. when passed, the method will emulate actual human-like typing, thus indicating to the player that they are 'typing'
 

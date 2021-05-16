@@ -174,3 +174,9 @@ void core::lvl1() {
 	cout << "\n\n";
 	sleep(2);
 }
+
+void core::lvl2()
+{
+	cout << "\033]0;" << "Terminal" << "\007";
+	system("clear");
+}
