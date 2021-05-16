@@ -1,0 +1,2 @@
+# terminalInsanityCLI
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1fb9591b73c4c15bedcbc828de6e600)](https://app.codacy.com/gh/ongakken/terminalInsanityCLI?utm_source=github.com&utm_medium=referral&utm_content=ongakken/terminalInsanityCLI&utm_campaign=Badge_Grade_Settings)
