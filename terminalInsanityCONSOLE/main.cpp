@@ -13,18 +13,19 @@ uint64_t constexpr mix(char m, uint64_t s)
 
 uint64_t constexpr hashIt(const char* m)
 {
-	return (*m) ? mix(*m, hashIt(m + 1)) : 0;
+	return (*m) ? mix(*m, hashIt(m + 1)) : 0; // @todo Figure out a way how to prevent recursion here (as reported by the MISRA 17.2 rule)
+	// @todo as per the MISRA 18.4 rule, unions are disallowed for any purpose, thus this method needs to be rewritten
 }
 
 int main() {
 	core Core;
-	cout << "Terminal Insanity 0.00.03\n";
+	cout << "Terminal Insanity 0.00.1\n";
+	Core.bInteractiveShell = false;
 	Core.init();
 	Core.boot();
 	Core.lvl1();
 	Core.boot();
-	bool bInteractiveShell = true;
-	while(bInteractiveShell)
+	while (Core.bInteractiveShell)
 	{
 		cout << "$ ";
 		cin >> Core.cmdInput;
@@ -87,9 +88,7 @@ void core::init() {
 }
 
 void core::boot() {
-	cout << "\033]0;"
-		<< "Terminal"
-		<< "\007";
+	cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
 	cout << "Booting ...\n\n";
 	sleep(2);
