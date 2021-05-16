@@ -22,25 +22,21 @@ int main() {
 	Core.init();
 	Core.boot();
 	Core.lvl1();
-	string testInput;
+	Core.boot();
 	bool bInteractiveShell = true;
-	//cout << "$  ";
-	//cin >> testInput;
-	//const char* testInputChar = testInput.c_str();
-	//Core.evaluateCmdInput(testInputChar);
 	while(bInteractiveShell)
 	{
 		cout << "$ ";
-		cin >> testInput;
-		const char* testInputChar = testInput.c_str();
-		Core.evaluateCmdInput(testInputChar);
+		cin >> Core.cmdInput;
+		const char* cmdInputChar = Core.cmdInput.c_str();
+		Core.evaluateCmdInput(cmdInputChar);
 
 	}
 	return 0;
 }
 
 void core::iterateOverString(string &playerMsg, int s) {
-	for(int i = 0; i < playerMsg.size(); i++)
+	for(long unsigned int i = 0; i < playerMsg.size(); i++)
 	{
 		cout << playerMsg[i] << flush;
 		usleep(s);
@@ -180,4 +176,5 @@ int core::lvl1() {
 	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3");
 	cout << "\n\n";
 	sleep(2);
+	return 0;
 }
