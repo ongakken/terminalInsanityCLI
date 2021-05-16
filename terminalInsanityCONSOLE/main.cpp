@@ -1,27 +1,84 @@
-﻿// © Copyright 2020 - 2021 Ongakken s.r.o. All rights reserved.
-//   Ongakken, the alternative names オンガッケン, オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
-//   Based on 2016
+﻿// © Copyright 2021 Ongakken s.r.o. All rights reserved.
+//   Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
+// Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
 
 #include "main.h"
 
-using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
+// using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
-int main()
+uint64_t constexpr mix(char m, uint64_t s)
 {
-	core Core;
-	cout << "Terminal Insanity 0.00.2\n";
-	Core.init();
-	Core.lvl1();
-    return 0;
+	return ((s << 7) + ~(s >> 3)) + ~m;
 }
 
-int core::init()
+uint64_t constexpr hashIt(const char* m)
 {
-	system("[ -d /opt/ongakken/terminalInsanity ] && printf '\a'");
+	return (*m) ? mix(*m, hashIt(m + 1)) : 0;
+}
+
+int main() {
+	core Core;
+	cout << "Terminal Insanity 0.00.03\n";
+	Core.init();
+	Core.boot();
+	Core.lvl1();
+	string testInput;
+	bool bInteractiveShell = true;
+	//cout << "$  ";
+	//cin >> testInput;
+	//const char* testInputChar = testInput.c_str();
+	//Core.evaluateCmdInput(testInputChar);
+	while(bInteractiveShell)
+	{
+		cout << "$ ";
+		cin >> testInput;
+		const char* testInputChar = testInput.c_str();
+		Core.evaluateCmdInput(testInputChar);
+
+	}
+	return 0;
+}
+
+void core::iterateOverString(string &playerMsg, int s) {
+	for(int i = 0; i < playerMsg.size(); i++)
+	{
+		cout << playerMsg[i] << flush;
+		usleep(s);
+	}
+}
+
+void core::evaluateCmdInput(const char* cmdInputChar)
+{
+	switch(hashIt(cmdInputChar))
+	{
+		case hashIt("whoami"):
+			whoami();
+			break;
+		default:
+			cout << "ongashell: command not found: " << cmdInputChar << endl;
+			break;
+	};
+}
+
+int core::whoami()
+{
+	cout << "root\n";
+	return 0;
+}
+
+
+int core::init() {
+	// string x;
+	system("/usr/bin/zsh -c '[ -d /opt/ongakken/terminalInsanity ] && [ -d /opt/ongakken/terminalInsanity/sounds ] && [ -d /opt/ongakken/terminalInsanity/img ] && printf '\a''");
 	sleep(1);
-	system("[ -d /opt/ongakken/terminalInsanity/sounds ] && printf '\a'");
+	system("grep 'zsh' /etc/shells >> /dev/null && printf '\a'");
 	sleep(1);
-	system("[ -d /opt/ongakken/terminalInsanity/img ] && printf '\a'");
+	system("./zshVerify >> /dev/null && printf '\a'");
+	// cout << "$ ";
+	// getline(cin, x, '\n');
+	// system("! /bin/sed -r -e 's/\x0.*//' /proc/$$/cmdline | grep 'zsh' >>
+	// /dev/null && /usr/bin/zsh"); system("/bin/sed -r -e 's/\x0.*//'
+	// /proc/$$/cmdline | grep 'zsh'");
 	usleep(500000);
 	system("kitty -o allow_remote_control=yes --title OngakkenLogo --listen-on unix:/tmp/terminalInsanity --hold viu /opt/ongakken/logo.png &");
 	system("paplay /opt/ongakken/terminalInsanity/sounds/intro.wav &");
@@ -32,13 +89,10 @@ int core::init()
 	return 0;
 }
 
-int core::lvl1()
-{
-	/*system("kitty -o allow_remote_control=yes --title TheBeginning --listen-on unix:/tmp/terminalInsanity --hold &");
-	sleep(1);
-	system("kitty @ --to unix:/tmp/terminalInsanity send-text --match title:TheBeginning 'Greetings'");
-	*/
-	cout << "\033]0;" << "Terminal" << "\007";
+int core::boot() {
+	cout << "\033]0;"
+		<< "Terminal"
+		<< "\007";
 	system("clear");
 	cout << "Booting ...\n\n";
 	sleep(2);
@@ -52,16 +106,23 @@ int core::lvl1()
 	cout << "\n";
 	sleep(1);
 	ifstream f("/opt/ongakken/terminalInsanity/dmesg");
-	if (f.is_open())
-	{
-		cout << f.rdbuf();
+	if (f.is_open()) {
+	cout << f.rdbuf();
 	}
 	cout << "\n";
-	system("printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
+	system(
+		"printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
 	cout << "\n";
 	sleep(4);
-	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine 'readme' ...'");
+	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine "
+			"'readme' ...'");
 	sleep(1);
+	system("clear");
+	return 0;
+}
+
+int core::lvl1() {
+	cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
 	sleep(3);
 	cout << "IRC channel connection established\n\n";
@@ -69,24 +130,54 @@ int core::lvl1()
 	cout << "\n";
 	cout << "\n\n";
 	sleep(3);
-	system("printf '\e[34mJason:\e[0m We need to figure something out ...\n'");
+	system("printf '\e[34mJason:\e[0m we need to figure something out ...\n'");
 	cout << "\n";
 	sleep(4);
-	system("printf '\e[95mMark:\e[0m Agreed, we cannot just sit and do nothin\n'");
+	system("printf '\e[95mMark:\e[0m agreed, we cannot just sit and do nothin\n'");
 	cout << "\n";
 	sleep(6);
-	system("printf '\e[34mJason:\e[0m Where is J3ff btw?\n'");
+	system("printf '\e[34mJason:\e[0m where is J3ff btw?\n'");
 	cout << "\n";
 	sleep(3);
 	system("printf '\e[95mMark:\e[0m idk\n'");
 	cout << "\n";
-	sleep(7);
-	system("printf '%s' '\e[36mJ3ff:\e[0m' && printf ' Hey guys\n' | pv -qL 7");
-	cout << "\n";
-	sleep(5);
+	sleep(4);
+	system("printf '%s' '\e[36mJ3ff:\e[0m'");
+	playerMsg = (" Hey guys");
+	iterateOverString(playerMsg, 100000);
+	cout << "\n\n";
+	sleep(6);
 	system("printf '\e[95mMark:\e[0m nice of you to finally show up..\n'");
 	cout << "\n";
-	usleep(100000);
+	usleep(150000);
 	system("printf '\e[34mJason:\e[0m hey man\n'");
+	sleep(7);
+	system("printf '\e[34mJason:\e[0m we were just discussing the plan\n'");
+	cout << "\n";
 	sleep(3);
+	system("printf '%s' '\e[36mJ3ff:\e[0m'");
+	playerMsg = (" So how are we gonna do it?");
+	iterateOverString(playerMsg, 100000);
+	cout << "\n\n";
+	sleep(9);
+	system("printf '\e[95mMark:\e[0m well, for starters, we need more people.\n'");
+	sleep(7);
+	system("printf '\e[95mMark:\e[0m even though we can do it skill-wise, we do not have time, so we need more firepower\n'");
+	sleep(11);
+	system("printf '\e[95mMark:\e[0m i have an idea, but it requires putting aurora up to a difficult recursive search task\n'");
+	sleep(12);
+	system("printf '\e[95mMark:\e[0m so j3ff, do i have your permission to access her and run the code i wrote?\n'");
+	cout << "\n";
+	sleep(4);
+	system("printf '%s' '\e[36mJ3ff:\e[0m'");
+	playerMsg = (" Alright, try it. We need this to happen.");
+	iterateOverString(playerMsg, 100000);
+	cout << "\n\n";
+	sleep(5);
+	system("printf '\e[95mMark:\e[0m roger. on it\n'");
+	cout << "\n\n";
+	sleep(4);
+	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3");
+	cout << "\n\n";
+	sleep(2);
 }
