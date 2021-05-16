@@ -64,7 +64,7 @@ int core::whoami()
 }
 
 
-int core::init() {
+void core::init() {
 	// string x;
 	system("/usr/bin/zsh -c '[ -d /opt/ongakken/terminalInsanity ] && [ -d /opt/ongakken/terminalInsanity/sounds ] && [ -d /opt/ongakken/terminalInsanity/img ] && printf '\a''");
 	sleep(1);
@@ -84,10 +84,9 @@ int core::init() {
 	system("killall paplay");
 	sleep(1);
 	system("kitty @ --to unix:/tmp/terminalInsanity close-window --match title:OngakkenLogo");
-	return 0;
 }
 
-int core::boot() {
+void core::boot() {
 	cout << "\033]0;"
 		<< "Terminal"
 		<< "\007";
@@ -108,18 +107,15 @@ int core::boot() {
 	cout << f.rdbuf();
 	}
 	cout << "\n";
-	system(
-		"printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
+	system("printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
 	cout << "\n";
 	sleep(4);
-	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine "
-			"'readme' ...'");
+	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine 'readme' ...'");
 	sleep(1);
 	system("clear");
-	return 0;
 }
 
-int core::lvl1() {
+void core::lvl1() {
 	cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
 	sleep(3);
@@ -178,5 +174,4 @@ int core::lvl1() {
 	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3");
 	cout << "\n\n";
 	sleep(2);
-	return 0;
 }
