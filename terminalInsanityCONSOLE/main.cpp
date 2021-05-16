@@ -35,11 +35,12 @@ int main() {
 	return 0;
 }
 
-void core::iterateOverString(string &playerMsg, int s) {
+void core::iterateOverString(string &playerMsg, int s, int long ns) {
+	struct timespec ts = { s, ns };
 	for(long unsigned int i = 0; i < playerMsg.size(); i++)
 	{
 		cout << playerMsg[i] << flush;
-		usleep(s);
+		nanosleep(&ts, NULL);
 	}
 }
 
@@ -75,10 +76,11 @@ int core::init() {
 	// system("! /bin/sed -r -e 's/\x0.*//' /proc/$$/cmdline | grep 'zsh' >>
 	// /dev/null && /usr/bin/zsh"); system("/bin/sed -r -e 's/\x0.*//'
 	// /proc/$$/cmdline | grep 'zsh'");
-	usleep(500000);
+	sleep(1);
 	system("kitty -o allow_remote_control=yes --title OngakkenLogo --listen-on unix:/tmp/terminalInsanity --hold viu /opt/ongakken/logo.png &");
 	system("paplay /opt/ongakken/terminalInsanity/sounds/intro.wav &");
-	usleep(1700000);
+	struct timespec ts = { 0, 1700000000 };
+	nanosleep(&ts, NULL);
 	system("killall paplay");
 	sleep(1);
 	system("kitty @ --to unix:/tmp/terminalInsanity close-window --match title:OngakkenLogo");
@@ -140,12 +142,12 @@ int core::lvl1() {
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Hey guys");
-	iterateOverString(playerMsg, 100000);
+	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(6);
 	system("printf '\e[95mMark:\e[0m nice of you to finally show up..\n'");
 	cout << "\n";
-	usleep(150000);
+	sleep(1);
 	system("printf '\e[34mJason:\e[0m hey man\n'");
 	sleep(7);
 	system("printf '\e[34mJason:\e[0m we were just discussing the plan\n'");
@@ -153,7 +155,7 @@ int core::lvl1() {
 	sleep(3);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" So how are we gonna do it?");
-	iterateOverString(playerMsg, 100000);
+	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(9);
 	system("printf '\e[95mMark:\e[0m well, for starters, we need more people.\n'");
@@ -167,7 +169,7 @@ int core::lvl1() {
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Alright, try it. We need this to happen.");
-	iterateOverString(playerMsg, 100000);
+	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(5);
 	system("printf '\e[95mMark:\e[0m roger. on it\n'");
