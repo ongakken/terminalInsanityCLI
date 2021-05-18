@@ -14,7 +14,7 @@ uint64_t constexpr mix(char m, uint64_t s)
 uint64_t constexpr hashIt(const char* m)
 {
 	return (*m) ? mix(*m, hashIt(m + 1)) : 0; // @todo Figure out a way how to prevent recursion here (as reported by the MISRA 17.2 rule)
-	////////////////////////////////////////////////// Ola thinks that this could work for the issue above, so we'll try it and see if it does: https://www.geeksforgeeks.org/converting-strings-numbers-cc/
+
 	// @todo as per the MISRA 18.4 rule, unions are disallowed for any purpose, thus this method needs to be rewritten
 }
 
