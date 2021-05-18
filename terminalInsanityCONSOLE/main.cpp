@@ -25,14 +25,7 @@ int main() {
 	Core.boot();
 	Core.lvl1();
 	Core.boot();
-	while (Core.bInteractiveShell)
-	{
-		cout << "$ ";
-		cin >> Core.cmdInput;
-		const char* cmdInputChar = Core.cmdInput.c_str();
-		Core.evaluateCmdInput(cmdInputChar);
-
-	}
+	Core.lvl2(Core);
 	return 0;
 }
 
@@ -64,6 +57,16 @@ int core::whoami()
 	return 0;
 }
 
+void core::spawnShell(core& Core)
+{
+	while(Core.bInteractiveShell)
+	{
+		cout << "$ ";
+		cin >> Core.cmdInput;
+		const char* cmdInputChar = Core.cmdInput.c_str();
+		Core.evaluateCmdInput(cmdInputChar);
+	}
+}
 
 void core::init() {
 	// string x;
@@ -175,8 +178,10 @@ void core::lvl1() {
 	sleep(2);
 }
 
-void core::lvl2()
+void core::lvl2(core& Core)
 {
 	cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
+	Core.bInteractiveShell = true;
+	Core.spawnShell(Core);
 }
