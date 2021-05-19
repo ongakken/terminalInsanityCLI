@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.sln # completely useless and unneccesary
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

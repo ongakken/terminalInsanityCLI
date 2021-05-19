@@ -13,37 +13,29 @@ uint64_t constexpr mix(char m, uint64_t s)
 
 uint64_t constexpr hashIt(const char* m)
 {
-	return (*m) ? mix(*m, hashIt(m + 1)) : 0;
+	return (*m) ? mix(*m, hashIt(m + 1)) : 0; // @todo Figure out a way how to prevent recursion here (as reported by the MISRA 17.2 rule)
+
+	// @todo as per the MISRA 18.4 rule, unions are disallowed for any purpose, thus this method needs to be rewritten
 }
 
 int main() {
 	core Core;
-	cout << "Terminal Insanity 0.00.03\n";
+	cout << "Terminal Insanity 0.00.1\n";
+	Core.bInteractiveShell = false;
 	Core.init();
 	Core.boot();
 	Core.lvl1();
-	string testInput;
-	bool bInteractiveShell = true;
-	//cout << "$  ";
-	//cin >> testInput;
-	//const char* testInputChar = testInput.c_str();
-	//Core.evaluateCmdInput(testInputChar);
-	while(bInteractiveShell)
-	{
-		cout << "$ ";
-		cin >> testInput;
-		const char* testInputChar = testInput.c_str();
-		Core.evaluateCmdInput(testInputChar);
-
-	}
+	Core.boot();
+	Core.lvl2(Core);
 	return 0;
 }
 
-void core::iterateOverString(string &playerMsg, int s) {
-	for(int i = 0; i < playerMsg.size(); i++)
+void core::iterateOverString(string &playerMsg, int s, int long ns) {
+	struct timespec ts = { s, ns };
+	for(long unsigned int i = 0; i < playerMsg.size(); i++)
 	{
 		cout << playerMsg[i] << flush;
-		usleep(s);
+		nanosleep(&ts, NULL);
 	}
 }
 
@@ -66,8 +58,18 @@ int core::whoami()
 	return 0;
 }
 
+void core::spawnShell(core& Core)
+{
+	while(Core.bInteractiveShell)
+	{
+		cout << "$ ";
+		cin >> Core.cmdInput;
+		const char* cmdInputChar = Core.cmdInput.c_str();
+		Core.evaluateCmdInput(cmdInputChar);
+	}
+}
 
-int core::init() {
+void core::init() {
 	// string x;
 	system("/usr/bin/zsh -c '[ -d /opt/ongakken/terminalInsanity ] && [ -d /opt/ongakken/terminalInsanity/sounds ] && [ -d /opt/ongakken/terminalInsanity/img ] && printf '\a''");
 	sleep(1);
@@ -79,20 +81,18 @@ int core::init() {
 	// system("! /bin/sed -r -e 's/\x0.*//' /proc/$$/cmdline | grep 'zsh' >>
 	// /dev/null && /usr/bin/zsh"); system("/bin/sed -r -e 's/\x0.*//'
 	// /proc/$$/cmdline | grep 'zsh'");
-	usleep(500000);
+	sleep(1);
 	system("kitty -o allow_remote_control=yes --title OngakkenLogo --listen-on unix:/tmp/terminalInsanity --hold viu /opt/ongakken/logo.png &");
 	system("paplay /opt/ongakken/terminalInsanity/sounds/intro.wav &");
-	usleep(1700000);
+	struct timespec ts = { 0, 1700000000 };
+	nanosleep(&ts, NULL);
 	system("killall paplay");
 	sleep(1);
 	system("kitty @ --to unix:/tmp/terminalInsanity close-window --match title:OngakkenLogo");
-	return 0;
 }
 
-int core::boot() {
-	cout << "\033]0;"
-		<< "Terminal"
-		<< "\007";
+void core::boot() {
+	cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
 	cout << "Booting ...\n\n";
 	sleep(2);
@@ -110,18 +110,15 @@ int core::boot() {
 	cout << f.rdbuf();
 	}
 	cout << "\n";
-	system(
-		"printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
+	system("printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
 	cout << "\n";
 	sleep(4);
-	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine "
-			"'readme' ...'");
+	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine 'readme' ...'");
 	sleep(1);
 	system("clear");
-	return 0;
 }
 
-int core::lvl1() {
+void core::lvl1() {
 	cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
 	sleep(3);
@@ -144,12 +141,12 @@ int core::lvl1() {
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Hey guys");
-	iterateOverString(playerMsg, 100000);
+	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(6);
 	system("printf '\e[95mMark:\e[0m nice of you to finally show up..\n'");
 	cout << "\n";
-	usleep(150000);
+	sleep(1);
 	system("printf '\e[34mJason:\e[0m hey man\n'");
 	sleep(7);
 	system("printf '\e[34mJason:\e[0m we were just discussing the plan\n'");
@@ -157,7 +154,7 @@ int core::lvl1() {
 	sleep(3);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" So how are we gonna do it?");
-	iterateOverString(playerMsg, 100000);
+	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(9);
 	system("printf '\e[95mMark:\e[0m well, for starters, we need more people.\n'");
@@ -171,7 +168,7 @@ int core::lvl1() {
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Alright, try it. We need this to happen.");
-	iterateOverString(playerMsg, 100000);
+	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(5);
 	system("printf '\e[95mMark:\e[0m roger. on it\n'");
@@ -180,4 +177,12 @@ int core::lvl1() {
 	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3");
 	cout << "\n\n";
 	sleep(2);
+}
+
+void core::lvl2(core& Core)
+{
+	cout << "\033]0;" << "Terminal" << "\007";
+	system("clear");
+	Core.bInteractiveShell = true;
+	Core.spawnShell(Core);
 }
