@@ -5,11 +5,7 @@
 
 using namespace std; // standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
-#ifdef _WIN32 // is the current platform Windows? load the system lib
-#include <Windows.h>
-#else // are we on anything else? load the POSIX unix sys lib
-#include <unistd.h>
-#endif
+#include <unistd.h> // cinlude the standard POSIX sys lib
 //#include <cstdio> // we don't really need this lib right now, but keeping it here just in case. I mean, there's gotta be a reason why I put it in in the first place, right? xD
 #include <iostream> // standard C++ I/O stream lib, needed for stuff like cout and cin
 #include <fstream> // standard C++ file stream lib, needed for loading, reading writing to or otherwise manipulating files

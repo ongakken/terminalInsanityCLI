@@ -46,6 +46,9 @@ void core::evaluateCmdInput(const char* cmdInputChar)
 		case hashIt("whoami"):
 			whoami();
 			break;
+		case hashIt("exit"):
+			// do nothing
+			break;
 		default:
 			cout << "ongashell: command not found: " << cmdInputChar << endl;
 			break;
@@ -66,6 +69,11 @@ void core::spawnShell(core& Core)
 		cin >> Core.cmdInput;
 		const char* cmdInputChar = Core.cmdInput.c_str();
 		Core.evaluateCmdInput(cmdInputChar);
+		if(cmdInput == "exit")
+		{
+			break;
+			Core.bInteractiveShell = false;
+		}
 	}
 }
 
