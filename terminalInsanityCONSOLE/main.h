@@ -10,6 +10,8 @@ using namespace std; // standard namespace for using cout, cin and some other wi
 #include <iostream> // standard C++ I/O stream lib, needed for stuff like cout and cin
 #include <fstream> // standard C++ file stream lib, needed for loading, reading writing to or otherwise manipulating files
 #include <time.h> // for nanosleep(2); nanosleep() is obsolete and thus we're switching to nanosleep(2) instead
+#include <stdlib.h>
+#include <limits.h>
 
 
 class core
