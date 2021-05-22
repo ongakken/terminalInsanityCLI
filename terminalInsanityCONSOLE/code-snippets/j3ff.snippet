@@ -11,7 +11,8 @@
 				<Code Language="CPP">
 					<![CDATA[system("printf '%s' '\e[36mJ3ff:\e[0m'");
 							 playerMsg = (" $msg$");
-							 iterateOverString(playerMsg, $typingSpeed$);]]>
+							 iterateOverString(playerMsg, $typingSpeedSeconds$, $typingSpeedNanoseconds$);
+							 sleep($sleepAfter$);]]>
 				</Code>
 				<Declarations>
 					<Literal>
@@ -20,9 +21,19 @@
 						<Default></Default>
 					</Literal>
 					<Literal>
-						<ID>typingSpeed</ID>
+						<ID>typingSpeedSeconds</ID>
+						<ToolTip>Player shell typing speed per-message</ToolTip>
+						<Default>0</Default>
+					</Literal>
+					<Literal>
+						<ID>typingSpeedNanoseconds</ID>
 						<ToolTip>Player shell typing speed per-message</ToolTip>
 						<Default>100000000</Default>
+					</Literal>
+					<Literal>
+						<ID>sleepAfter</ID>
+						<ToolTip>Long long do we wait after J3ff sends his msg?</ToolTip>
+						<Default>3</Default>
 					</Literal>
 				</Declarations>
 			</Snippet>

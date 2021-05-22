@@ -5,15 +5,13 @@
 
 using namespace std; // standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
-#ifdef _WIN32 // is the current platform Windows? load the system lib
-#include <Windows.h>
-#else // are we on anything else? load the POSIX unix sys lib
-#include <unistd.h>
-#endif
+#include <unistd.h> // cinlude the standard POSIX sys lib
 //#include <cstdio> // we don't really need this lib right now, but keeping it here just in case. I mean, there's gotta be a reason why I put it in in the first place, right? xD
 #include <iostream> // standard C++ I/O stream lib, needed for stuff like cout and cin
 #include <fstream> // standard C++ file stream lib, needed for loading, reading writing to or otherwise manipulating files
 #include <time.h> // for nanosleep(2); nanosleep() is obsolete and thus we're switching to nanosleep(2) instead
+#include <stdlib.h>
+#include <limits.h>
 
 
 class core
@@ -24,7 +22,7 @@ public:
 	//// vars
 	bool bInteractiveShell; // allow the player to access the in-game shell? if true, a while loop will run and the player will have access to the shell
 	void spawnShell(core& Core);
-	void init(); // this method checks the runtime dependencies and verifies if all dirs are existing; if not, it creates them. we also play the intro seq here
+	void init(); // this method checks the runtime dependencies and verifies if all dirs exist; if not, it creates them. we also play the intro seq here
 	void boot(); // this method runs the simulated boot seq of the in-game computer
 	void lvl1(); // level methods -- these run code relevant for each level of the game
 	void lvl2(core& Core);
