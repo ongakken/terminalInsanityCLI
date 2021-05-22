@@ -1,6 +1,6 @@
 ﻿// © Copyright 2021 Ongakken s.r.o. All rights reserved.
 //   Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
-// Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
+//   Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
 
 #include "main.h"
 
@@ -21,7 +21,7 @@ int main() {
 	char hostname[HOST_NAME_MAX + 1]; // define a char var 'hostname' with the max_len of 65 bytes;
 	gethostname(hostname, HOST_NAME_MAX + 1); // use the gethostname() system call from unistd.h to get the current local machine's hostname
 	cout << "Terminal Insanity 0.00.1 @ " << hostname << flush << endl; // print the hostname after the game name + version
-	Core.bInteractiveShell = false;
+	Core.bInteractiveShell = false; // set the in-game shell interaction bool to false (default)
 	Core.init();
 	Core.boot();
 	Core.lvl1();
@@ -180,7 +180,7 @@ void core::lvl1() {
 	system("printf '\e[95mMark:\e[0m roger. on it\n'");
 	cout << "\n\n";
 	sleep(4);
-	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3"); // I'm keeping the 'pv' approach here just in case, so we know how to use it later
+	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3"); // I'm keeping the 'pv' approach here just in case, so we'll know how to use it later
 	cout << "\n\n";
 	sleep(2);
 }

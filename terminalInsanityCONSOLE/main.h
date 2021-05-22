@@ -22,7 +22,7 @@ public:
 	//// vars
 	bool bInteractiveShell; // allow the player to access the in-game shell? if true, a while loop will run and the player will have access to the shell
 	void spawnShell(core& Core);
-	void init(); // this method checks the runtime dependencies and verifies if all dirs are existing; if not, it creates them. we also play the intro seq here
+	void init(); // this method checks the runtime dependencies and verifies if all dirs exist; if not, it creates them. we also play the intro seq here
 	void boot(); // this method runs the simulated boot seq of the in-game computer
 	void lvl1(); // level methods -- these run code relevant for each level of the game
 	void lvl2(core& Core);
