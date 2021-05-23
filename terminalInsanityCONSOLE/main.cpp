@@ -39,14 +39,57 @@ void core::iterateOverString(string &playerMsg, int s, int long ns) {
 	}
 }
 
-void core::evaluateCmdInput(const char* cmdInputChar)
+void core::evaluateCmdInput(string cmdInputUnprocessed)
 {
-	switch(hashIt(cmdInputChar))
+	string cmdDivision;
+	string base;
+	string arg;
+	for(auto c : cmdInputUnprocessed)
+	{
+		if(c == ' ')
+		{
+			arg = cmdDivision;
+			cmdDivision = "";
+		}
+		else {
+			cmdDivision = cmdDivision + c;
+		}
+	}
+	base = cmdDivision;
+	if(arg != "")
+	{
+		swap(base, arg);
+	}
+	//cout << "base: " << base << endl;
+	//cout << "arg: " << arg << endl;
+
+	string cmdInput = base + arg;
+	const char* cmdInputChar = cmdInput.c_str();
+
+	const char* baseChar = base.c_str();
+	const char* argChar = arg.c_str();
+
+	////////////////////////////////////////
+
+	switch(hashIt(baseChar))
 	{
 		case hashIt("whoami"):
-			whoami();
+			switch(hashIt(argChar))
+			{
+				case hashIt(""):
+					whoami();
+					break;
+				case hashIt("test"):
+					whoami("test");
+					cout << "from case: " << "who dat test?\n";
+					break;
+				default:
+					break;
+			}
+			whoami(argChar);
+			//whoami();
 			break;
-		case hashIt("who"): // @todo Create the ability to pass arguments to the in-game shell's commands @body So basically we're gonna pass arguments into functions that handle the functionality of the game's in-game shell comands, for example: man sudo, where man is a command and sudo is an argument
+		case hashIt("who"): // TODO: Create the ability to pass arguments to the in-game shell's commands. So basically we're gonna pass arguments into functions that handle the functionality of the game's in-game shell comands, for example: man sudo, where man is a command and sudo is an argument
 			// code
 			break;
 		case hashIt("exit"):
@@ -58,9 +101,26 @@ void core::evaluateCmdInput(const char* cmdInputChar)
 	};
 }
 
-int core::whoami()
+int core::whoami(const char* arg)
 {
-	cout << "j3ff\n";
+	//if(arg != "")
+	//{
+	//	cout << "whoami: extra operand '" << arg << "'" << endl;
+	//}
+	switch(hashIt(arg))
+	{
+		case hashIt("test"):
+			cout << "from whoami() case: " << "who tf is test?\n";
+			break;
+	}
+	if(arg == "test")
+	{
+		cout << "from whoami() if: " << "no user named 'test'\n";
+	}
+	else
+	{
+		cout << "j3ff\n";
+	}
 	return 0;
 }
 
@@ -69,9 +129,9 @@ void core::spawnShell(core& Core)
 	while(Core.bInteractiveShell)
 	{
 		cout << "$ ";
-		cin >> Core.cmdInput;
-		const char* cmdInputChar = Core.cmdInput.c_str();
-		Core.evaluateCmdInput(cmdInputChar);
+		getline(cin, cmdInput); // !!! WARN: DO NOT use cin >> var; in here, it WILL NOT work, because std::cin stops reading at whitespace !!!
+		//const char* cmdInputChar = cmdInput.c_str();
+		Core.evaluateCmdInput(cmdInput);
 		if(cmdInput == "exit")
 		{
 			break;
@@ -81,7 +141,6 @@ void core::spawnShell(core& Core)
 }
 
 void core::init() {
-	// string x;
 	system("/usr/bin/zsh -c '[ -d /opt/ongakken/terminalInsanity ] && [ -d /opt/ongakken/terminalInsanity/sounds ] && [ -d /opt/ongakken/terminalInsanity/img ] && printf '\a''");
 	sleep(1);
 	system("grep 'zsh' /etc/shells >> /dev/null && printf '\a'");
@@ -126,6 +185,7 @@ void core::boot() {
 
 void core::lvl1() {
 	cout << "\033]0;" << "Terminal" << "\007";
+	system("paplay /opt/ongakken/terminalInsanity/sounds/incoming.wav &");
 	system("clear");
 	sleep(3);
 	cout << "IRC channel connection established\n\n";
@@ -173,7 +233,7 @@ void core::lvl1() {
 	cout << "\n";
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
-	playerMsg = (" Alright, try it. We need this to happen.");
+	playerMsg = (" Alright, try it. We need this to happen.\n");
 	iterateOverString(playerMsg, 0, 100000000);
 	cout << "\n\n";
 	sleep(5);
@@ -191,27 +251,31 @@ void core::lvl2(core& Core)
 	system("clear");
 	Core.bInteractiveShell = true;
 	Core.spawnShell(Core);
-	cout << "\n\n";
+	cout << "\n";
 	system("printf '%s' '\e[32mDaily log, Oct. 10, 2022 ...\e[0m\n' | pv -qL 6");
 	sleep(2);
-	playerMsg = (" I haven't been feeling like myself lately. I don't know.");
-	iterateOverString(playerMsg, 0, 125000000);
+	playerMsg = (" I haven't been feeling like myself lately. I don't know.\n");
+	iterateOverString(playerMsg, 0, 105000000);
 	sleep(1);
-	cout << "\n\n";
+	//cout << "\n";
 	playerMsg = (" It might have something to do with the fact that I've been sleeping less ...\n");
 	iterateOverString(playerMsg, 0, 110000000);
 	sleep(1);
-	cout << "\n\n";
+	//cout << "\n";
 	playerMsg = (" or maybe it's because we're planning this next big thing and it's just too much\n");
-	iterateOverString(playerMsg, 0, 120000000);
+	iterateOverString(playerMsg, 0, 130000000);
 	sleep(2);
-	cout << "\n\n";
+	//cout << "\n";
 	playerMsg = (" if we really do this, it's going to be a huge risk for all of us\n");
 	iterateOverString(playerMsg, 0, 100000000);
 	sleep(2);
-	cout << "\n\n";
-	playerMsg = (" but I realize that we need to help them. If what they think is coming is correct, it's our civic duty to try and prevent it\n");
-	iterateOverString(playerMsg, 0, 170000000);
+	//cout << "\n";
+	playerMsg = (" but I realize that we need to help them. If what they think is coming is correct,\n it's our civic duty to try and prevent it\n");
+	iterateOverString(playerMsg, 0, 110000000);
 	sleep(1);
-	cout << "\n\n";
+	//cout << "\n";
+	playerMsg = (" I told  Mark to run the code he wrote, so we'll see where that leads to. We need to move ...\n");
+	iterateOverString(playerMsg, 0, 120000000);
+	sleep(4);
+	cout << "\n";
 }
