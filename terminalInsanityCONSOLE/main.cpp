@@ -107,7 +107,8 @@ int core::whoami(const char* arg)
 	//{
 	//	cout << "whoami: extra operand '" << arg << "'" << endl;
 	//}
-	switch(hashIt(arg))
+	const char* m = arg;
+	switch(hashIt(m))
 	{
 		case hashIt("test"):
 			cout << "from whoami() case: " << "who tf is test?\n";
