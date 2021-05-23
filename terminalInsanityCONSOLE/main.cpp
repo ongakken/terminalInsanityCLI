@@ -134,8 +134,8 @@ void core::spawnShell(core& Core)
 		Core.evaluateCmdInput(cmdInput);
 		if(cmdInput == "exit")
 		{
-			break;
 			Core.bInteractiveShell = false;
+			break;
 		}
 	}
 }
