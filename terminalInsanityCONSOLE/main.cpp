@@ -3,6 +3,7 @@
 //   Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
 
 #include "main.h"
+#include<string.h>
 
 // using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
@@ -72,7 +73,7 @@ void core::spawnShell(core& Core)
 		cin >> Core.cmdInput;
 		const char* cmdInputChar = Core.cmdInput.c_str();
 		Core.evaluateCmdInput(cmdInputChar);
-		if(cmdInput == "exit")
+		if(strcmp(cmdInput, "exit") == 0)
 		{
 			break;
 			Core.bInteractiveShell = false;
