@@ -113,6 +113,9 @@ int core::whoami(const char* arg)
 		case hashIt("test"):
 			cout << "from whoami() case: " << "who tf is test?\n";
 			break;
+		default:
+			// code
+			break;
 	}
 	if(strcmp(arg, "exit") == 0)
 	{
