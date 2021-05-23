@@ -113,7 +113,7 @@ int core::whoami(const char* arg)
 			cout << "from whoami() case: " << "who tf is test?\n";
 			break;
 	}
-	if(arg == "test")
+	if(strcmp(arg, "exit") == 0)
 	{
 		cout << "from whoami() if: " << "no user named 'test'\n";
 	}
@@ -130,9 +130,9 @@ void core::spawnShell(core& Core)
 	{
 		cout << "$ ";
 		getline(cin, cmdInput); // !!! WARN: DO NOT use cin >> var; in here, it WILL NOT work, because std::cin stops reading at whitespace !!!
-		//const char* cmdInputChar = cmdInput.c_str();
 		Core.evaluateCmdInput(cmdInput);
-		if(cmdInput == "exit")
+		const char* cmdInputChar = cmdInput.c_str();
+		if(strcmp(cmdInputChar, "exit") == 0)
 		{
 			Core.bInteractiveShell = false;
 			break;

@@ -12,6 +12,7 @@ using namespace std; // standard namespace for using cout, cin and some other wi
 #include <time.h> // for nanosleep(2); nanosleep() is obsolete and thus we're switching to nanosleep(2) instead
 #include <stdlib.h>
 #include <limits.h>
+#include <cstring>
 
 
 class core
