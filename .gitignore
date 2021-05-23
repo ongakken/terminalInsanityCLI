@@ -263,3 +263,4 @@ __pycache__/
 
 # ignore css
 *.css
+autocommit.bat
