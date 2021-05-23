@@ -12,6 +12,7 @@ using namespace std; // standard namespace for using cout, cin and some other wi
 #include <time.h> // for nanosleep(2); nanosleep() is obsolete and thus we're switching to nanosleep(2) instead
 #include <stdlib.h>
 #include <limits.h>
+#include <cstring>
 
 
 class core
@@ -21,24 +22,26 @@ public:
 
 	//// vars
 	bool bInteractiveShell; // allow the player to access the in-game shell? if true, a while loop will run and the player will have access to the shell
+	//const char* divideByWhitespace(string cmdInputUnprocessed);
 	void spawnShell(core& Core);
 	void init(); // this method checks the runtime dependencies and verifies if all dirs exist; if not, it creates them. we also play the intro seq here
 	void boot(); // this method runs the simulated boot seq of the in-game computer
 	void lvl1(); // level methods -- these run code relevant for each level of the game
 	void lvl2(core& Core);
 	string cmdInput; // command input the player will enter while having access to an interactive shell - this value will be processed and evaluated to see if the command entered exists
+	string cmdArgInput; // a string for args of the commands entered into the string declared above
 	string playerMsg; // a string to be iterated over using the iterateOverString method. when passed, the method will emulate actual human-like typing, thus indicating to the player that they are 'typing'
 
 	//// methods
 	void iterateOverString(string &playerMsg, int s, int long ns); // a method to iterate through a "msg" string and print out characters divided by an 's' amount of sleep (in seconds)
-	void evaluateCmdInput(const char* cmdInputChar); // this method  takes the command input from the player and checks if that command literal exists; if it does, it runs it, if not, it throws a printf error
+	void evaluateCmdInput(string cmdInputUnprocessed); // this method  takes the command input from the player and checks if that command literal exists; if it does, it runs it, if not, it throws a printf error
 
 	////////////////////////////////////////////////////////////////////
 
 
 	////////// command methods - methods that will execute stuff based on what shell command they represent //////////
 
-	int whoami();
+	int whoami(const char* arg = "");
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
