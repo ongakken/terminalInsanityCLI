@@ -121,7 +121,7 @@ int core::whoami(const char* arg)
 	}
 	else
 	{
-		cout << "whoami: extra operand '" << m << " '";
+		cout << "whoami: extra operand '" << m << " '\n";
 	}
 	return 0;
 }
