@@ -1,0 +1,15 @@
+# C/C++ with GCC
+# Build your C/C++ project with GCC using make.
+# Add steps that publish test results, save build artifacts, deploy, and more:
+
+trigger:
+- master
+- lvl2
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    make
+  displayName: 'make'
