@@ -1,0 +1,4 @@
+todo:
+  keyword: ['@issue', 'issue', 'todo', 'TODO', 'TO DO', 'help']
+  label: false
+  reopenClosed: true
