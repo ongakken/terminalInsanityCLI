@@ -77,9 +77,6 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 				case hashIt(""):
 					whoami();
 					break;
-				case hashIt("test"):
-					whoami(argChar);
-					break;
 				default:
 					whoami(argChar);
 					break;
