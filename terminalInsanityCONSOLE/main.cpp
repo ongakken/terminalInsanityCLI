@@ -78,14 +78,11 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 					whoami();
 					break;
 				case hashIt("test"):
-					whoami("test");
-					cout << "from case: " << "who dat 'test'?\n"; // we're currently printing the same thing multiple times to see what works best. afterwards, obvs. only one will stay
+					whoami(argChar);
 					break;
 				default:
 					break;
 			}
-			whoami(argChar);
-			//whoami();
 			break;
 		case hashIt("who"):
 			// code
@@ -103,6 +100,7 @@ int core::help()
 {
 	cout << "TermOS help table\n";
 	// add possible commands to format them to look like a table
+	return 0;
 }
 
 int core::whoami(const char* arg)
@@ -111,7 +109,7 @@ int core::whoami(const char* arg)
 	switch(hashIt(m))
 	{
 		case hashIt("test"):
-			cout << "from whoami() case: " << "who tf is 'test'?\n"; // printing again
+			cout << "from whoami() case: " << "who tf is 'test'?\n";
 			break;
 		default:
 			cout << "j3ff\n";
