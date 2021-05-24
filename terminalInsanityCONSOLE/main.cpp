@@ -81,6 +81,7 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 					whoami(argChar);
 					break;
 				default:
+					whoami(argChar);
 					break;
 			}
 			break;
@@ -106,16 +107,7 @@ int core::help()
 int core::whoami(const char* arg)
 {
 	const char* m = arg;
-	//switch(hashIt(m))
-	//{
-	//	case hashIt("test"):
-	//		cout << "from whoami() case: " << "who tf is 'test'?\n";
-	//		break;
-	//	default:
-	//,		cout << "j3ff\n";
-	//		break;
-	//}
-	if(m == "")
+	if(strcmp(m, "") == 0)
 	{
 		cout << "j3ff\n";
 	}
