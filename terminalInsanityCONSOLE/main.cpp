@@ -106,14 +106,22 @@ int core::help()
 int core::whoami(const char* arg)
 {
 	const char* m = arg;
-	switch(hashIt(m))
+	//switch(hashIt(m))
+	//{
+	//	case hashIt("test"):
+	//		cout << "from whoami() case: " << "who tf is 'test'?\n";
+	//		break;
+	//	default:
+	//,		cout << "j3ff\n";
+	//		break;
+	//}
+	if(m == "")
 	{
-		case hashIt("test"):
-			cout << "from whoami() case: " << "who tf is 'test'?\n";
-			break;
-		default:
-			cout << "j3ff\n";
-			break;
+		cout << "j3ff\n";
+	}
+	else
+	{
+		cout << "whoami: extra operand '" << m << " '";
 	}
 	return 0;
 }
