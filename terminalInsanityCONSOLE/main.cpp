@@ -82,6 +82,9 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 					break;
 			}
 			break;
+		case hashIt("help"):
+			help();
+			break;
 		case hashIt("who"):
 			// code
 			break;
@@ -97,7 +100,11 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 int core::help()
 {
 	cout << "TermOS help table\n";
-	// add possible commands to format them to look like a table
+	cout << "-----------------\n";
+	cout << "\n";
+	cout << "help - print this help table\n";
+	cout << "whoami - print effective userid\n";
+	cout << "\n";
 	return 0;
 }
 
