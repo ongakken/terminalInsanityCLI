@@ -103,7 +103,26 @@ int core::help()
 	cout << "-----------------\n";
 	cout << "\n";
 	cout << "help - print this help table\n";
+	cout << "ls - list directory contents\n";
+	cout << "cd <directory> - change directory\n";
+	cout << "cp - copy files\n";
+	cout << "scp <source> <target> - OpenSSH secure file copy\n";
+	cout << "rm - remove files\n";
+	cout << "scan - seach for nearby WAPs\n";
+	cout << "ifconfig - display information about a network interface\n";
+	cout << "iwconfig - display information about a wireless network interface\n";
 	cout << "whoami - print effective userid\n";
+	cout << "uptime - tell how long the system has been running\n";
+	cout << "lshw - list hardware\n";
+	cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
+	cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
+	cout << "set target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
+	cout << "execute - run a configured attack";
+	//cout << "email <email address> - send an email to an email address";
+	cout << "poweroff - power-off the machine";
+	cout << "lsgameinfo - list info about this game build";
+	cout << "exit - cause normal process termination\n";
+	cout << "\n";
 	cout << "\n";
 	return 0;
 }
