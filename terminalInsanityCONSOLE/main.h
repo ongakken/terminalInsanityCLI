@@ -17,12 +17,11 @@ using namespace std; // standard namespace for using cout, cin and some other wi
 
 class core
 {
-public:
+public: //I know, I know, encapsulation ... well, in this case, it isn't exactly neccesarry, so I won't do it. Maybe later.
 	////////// core vars and methods that run the game itself //////////
 
 	//// vars
 	bool bInteractiveShell; // allow the player to access the in-game shell? if true, a while loop will run and the player will have access to the shell
-	//const char* divideByWhitespace(string cmdInputUnprocessed);
 	void spawnShell(core& Core);
 	void init(); // this method checks the runtime dependencies and verifies if all dirs exist; if not, it creates them. we also play the intro seq here
 	void boot(); // this method runs the simulated boot seq of the in-game computer
@@ -41,10 +40,9 @@ public:
 
 	////////// command methods - methods that will execute stuff based on what shell command they represent //////////
 
-	int whoami(const char* arg = "");
+	int help(); // this method prints the TermOS help table to assist the players in navigating the game. a lot like an actual manual for a game, but considerably more confusing
+	int whoami(const char* arg = ""); // this func finds the user name associated with the currect effective userid. we're passing a default input of "" so it works even when called like whoami();
+
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
-
-
-

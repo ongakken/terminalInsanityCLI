@@ -60,8 +60,6 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 	{
 		swap(base, arg);
 	}
-	//cout << "base: " << base << endl;
-	//cout << "arg: " << arg << endl;
 
 	string cmdInput = base + arg;
 	const char* cmdInputChar = cmdInput.c_str();
@@ -79,17 +77,15 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 				case hashIt(""):
 					whoami();
 					break;
-				case hashIt("test"):
-					whoami("test");
-					cout << "from case: " << "who dat test?\n";
-					break;
 				default:
+					whoami(argChar);
 					break;
 			}
-			whoami(argChar);
-			//whoami();
 			break;
-		case hashIt("who"): // TODO: Create the ability to pass arguments to the in-game shell's commands. So basically we're gonna pass arguments into functions that handle the functionality of the game's in-game shell comands, for example: man sudo, where man is a command and sudo is an argument
+		case hashIt("help"):
+			help();
+			break;
+		case hashIt("who"):
 			// code
 			break;
 		case hashIt("exit"):
@@ -101,29 +97,46 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 	};
 }
 
+int core::help()
+{
+	cout << "TermOS help table\n";
+	cout << "-----------------\n";
+	cout << "\n";
+	cout << "help - print this help table\n";
+	cout << "ls - list directory contents\n";
+	cout << "cd <directory> - change directory\n";
+	cout << "cp - copy files\n";
+	cout << "scp <source> <target> - OpenSSH secure file copy\n";
+	cout << "rm - remove files\n";
+	cout << "scan - seach for nearby WAPs\n";
+	cout << "ifconfig - display information about a network interface\n";
+	cout << "iwconfig - display information about a wireless network interface\n";
+	cout << "whoami - print effective userid\n";
+	cout << "uptime - tell how long the system has been running\n";
+	cout << "lshw - list hardware\n";
+	cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
+	cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
+	cout << "set_target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
+	cout << "execute - run a configured attack";
+	//cout << "email <email address> - send an email to an email address";
+	cout << "poweroff - power-off the machine";
+	cout << "lsgameinfo - list info about this game build";
+	cout << "exit - cause normal process termination\n";
+	cout << "\n";
+	cout << "\n";
+	return 0;
+}
+
 int core::whoami(const char* arg)
 {
-	//if(arg != "")
-	//{
-	//	cout << "whoami: extra operand '" << arg << "'" << endl;
-	//}
 	const char* m = arg;
-	switch(hashIt(m))
+	if(strcmp(m, "") == 0)
 	{
-		case hashIt("test"):
-			cout << "from whoami() case: " << "who tf is test?\n";
-			break;
-		default:
-			// code
-			break;
-	}
-	if(strcmp(arg, "exit") == 0)
-	{
-		cout << "from whoami() if: " << "no user named 'test'\n";
+		cout << "j3ff\n";
 	}
 	else
 	{
-		cout << "j3ff\n";
+		cout << "whoami: extra operand '" << m << "'\n";
 	}
 	return 0;
 }
@@ -261,25 +274,22 @@ void core::lvl2(core& Core)
 	playerMsg = (" I haven't been feeling like myself lately. I don't know.\n");
 	iterateOverString(playerMsg, 0, 105000000);
 	sleep(1);
-	//cout << "\n";
 	playerMsg = (" It might have something to do with the fact that I've been sleeping less ...\n");
 	iterateOverString(playerMsg, 0, 110000000);
 	sleep(1);
-	//cout << "\n";
 	playerMsg = (" or maybe it's because we're planning this next big thing and it's just too much\n");
 	iterateOverString(playerMsg, 0, 130000000);
 	sleep(2);
-	//cout << "\n";
 	playerMsg = (" if we really do this, it's going to be a huge risk for all of us\n");
 	iterateOverString(playerMsg, 0, 100000000);
 	sleep(2);
-	//cout << "\n";
 	playerMsg = (" but I realize that we need to help them. If what they think is coming is correct,\n it's our civic duty to try and prevent it\n");
 	iterateOverString(playerMsg, 0, 110000000);
 	sleep(1);
-	//cout << "\n";
 	playerMsg = (" I told  Mark to run the code he wrote, so we'll see where that leads to. We need to move ...\n");
 	iterateOverString(playerMsg, 0, 120000000);
-	sleep(4);
-	cout << "\n";
+	sleep(2);
+	playerMsg = (" alright, I gotta go. I'll add to this log if there's anything important to write down later on. See you\n");
+	iterateOverString(playerMsg, 0, 100000000);
+	sleep(3);
 }
