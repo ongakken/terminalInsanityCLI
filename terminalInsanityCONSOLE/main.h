@@ -66,8 +66,8 @@ class host // this class is the base class for all the individual in-game machin
 public:
 	string hostname;
 	string IPaddr;
-	int openPorts[] = {};
-	int closedPorts[] = {};
+	int openPorts[10];
+	int closedPorts[10];
 };
 
 class user // this is the way we'll identify the individual users in the game
@@ -101,6 +101,3 @@ public:
 	bool canList;
 	bool canAccess;
 };
-
-
-
