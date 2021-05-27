@@ -41,8 +41,64 @@ public: //I know, I know, encapsulation ... well, in this case, it isn't exactly
 	////////// command methods - methods that will execute stuff based on what shell command they represent //////////
 
 	int help(); // this method prints the TermOS help table to assist the players in navigating the game. a lot like an actual manual for a game, but considerably more confusing
+	int ls();
+	int cd(string directory); // TODO: refactor these to use OOP to maintain dirs and files (yeah, I know, dirs are files in Linux)
+	int cp(string filename, string destination);
+	int scp(string src, string target);
+	int rm(string filename);
+	int scan();
+	int ifconfig();
+	int iwconfig();
 	int whoami(const char* arg = ""); // this func finds the user name associated with the currect effective userid. we're passing a default input of "" so it works even when called like whoami();
+	int uptime();
+	int lshw();
+	int nmap(string destIP, string mask);
+	int set_target(); // TODO: implement a TAB filling functionality
+	int execute();
+	int poweroff();
+	int lsgameinfo();
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+};
+
+class host // this class is the base class for all the individual in-game machines to which the player will have access
+{
+public:
+	string hostname;
+	string IPaddr;
+	int openPorts[10];
+	int closedPorts[10];
+};
+
+class user // this is the way we'll identify the individual users in the game
+{
+public:
+	int uid;
+	string username;
+};
+
+class root : public user
+{
+private:
+	// private properties
+
+	// private methods
+	int purge(); // once the player gains access to a root shell, they can invoke the 'purge' custom script whose functionality will be defined by this method. It'll essentially remove all file objects from the current machine
+};
+
+class file // this is how we'll interact with files
+{
+public:
+	string absPath;
+	string perms;
+	string owner;
+	bool isDev;
+};
+
+class directory : public file // this class is a child class of file because erverything in Linux is a file under the hood, including directories
+{
+public:
+	bool canList;
+	bool canAccess;
 };
