@@ -87,6 +87,11 @@ private:
 	int purge(); // once the player gains access to a root shell, they can invoke the 'purge' custom script whose functionality will be defined by this method. It'll essentially remove all file objects from the current machine
 };
 
+class j3ff : public user
+{
+	// player character main shell user
+};
+
 class file // this is how we'll interact with files
 {
 public:
