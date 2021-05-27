@@ -96,7 +96,7 @@ public:
 	bool isDev;
 };
 
-class directory : public file // this class is a child class of file because erverything in Linux is a file under the hood, including directories
+class directory : public file // this class is a child class of file because everything in Linux is a file under the hood, including directories
 {
 public:
 	bool canList;
