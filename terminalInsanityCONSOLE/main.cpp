@@ -116,7 +116,7 @@ int core::help()
 	cout << "lshw - list hardware\n";
 	cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
 	cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
-	cout << "set target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
+	cout << "set_target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
 	cout << "execute - run a configured attack";
 	//cout << "email <email address> - send an email to an email address";
 	cout << "poweroff - power-off the machine";

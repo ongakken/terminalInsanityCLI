@@ -17,7 +17,7 @@ using namespace std; // standard namespace for using cout, cin and some other wi
 
 class core
 {
-public:
+public: //I know, I know, encapsulation ... well, in this case, it isn't exactly neccesarry, so I won't do it. Maybe later.
 	////////// core vars and methods that run the game itself //////////
 
 	//// vars
@@ -42,9 +42,38 @@ public:
 
 	int help(); // this method prints the TermOS help table to assist the players in navigating the game. a lot like an actual manual for a game, but considerably more confusing
 	int ls();
+	int cd(string directory); // TODO: refactor these to use OOP to maintain dirs and files (yeah, I know, dirs are files in Linux)
+	int cp(string filename, string destination);
+	int scp(string src, string target);
+	int rm(string filename);
+	int scan();
+	int ifconfig();
+	int iwconfig();
 	int whoami(const char* arg = ""); // this func finds the user name associated with the currect effective userid. we're passing a default input of "" so it works even when called like whoami();
+	int uptime();
+	int lshw();
+	int nmap(string destIP, string mask);
+	int set_target(); // TODO: implement a TAB filling functionality
+	int execute();
+	int poweroff();
+	int lsgameinfo();
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+};
+
+class file
+{
+public:
+	string absPath;
+	string perms;
+	string owner;
+	bool isDev;
+};
+
+class directory : public file
+{
+	bool canList;
+	bool canAccess;
 };
 
 
