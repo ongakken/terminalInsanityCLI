@@ -61,7 +61,32 @@ public: //I know, I know, encapsulation ... well, in this case, it isn't exactly
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
 
-class file
+class host // this class is the base class for all the individual in-game machines to which the player will have access
+{
+public:
+	string hostname;
+	string IPaddr;
+	int openPorts[] = {};
+	int closedPorts[] = {};
+};
+
+class user // this is the way we'll identify the individual users in the game
+{
+public:
+	int uid;
+	string username;
+};
+
+class root : public user
+{
+private:
+	// private properties
+
+	// private methods
+	int purge(); // once the player gains access to a root shell, they can invoke the 'purge' custom script whose functionality will be defined by this method. It'll essentially remove all file objects from the current machine
+};
+
+class file // this is how we'll interact with files
 {
 public:
 	string absPath;
@@ -70,8 +95,9 @@ public:
 	bool isDev;
 };
 
-class directory : public file
+class directory : public file // this class is a child class of file because erverything in Linux is a file under the hood, including directories
 {
+public:
 	bool canList;
 	bool canAccess;
 };
