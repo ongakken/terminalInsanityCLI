@@ -41,6 +41,7 @@ public:
 	////////// command methods - methods that will execute stuff based on what shell command they represent //////////
 
 	int help(); // this method prints the TermOS help table to assist the players in navigating the game. a lot like an actual manual for a game, but considerably more confusing
+	int ls();
 	int whoami(const char* arg = ""); // this func finds the user name associated with the currect effective userid. we're passing a default input of "" so it works even when called like whoami();
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
