@@ -20,7 +20,7 @@ int main() {
 	core Core; // instantiate a 'Core' object of the 'core' class
 	char hostname[HOST_NAME_MAX + 1]; // define a char var 'hostname' with the max_len of 65 bytes;
 	gethostname(hostname, HOST_NAME_MAX + 1); // use the gethostname() system call from unistd.h to get the current local machine's hostname
-	cout << "Terminal Insanity 0.00.1 @ " << hostname << flush << endl; // print the hostname after the game name + version
+	std::cout << "Terminal Insanity 0.00.1 @ " << hostname << std::flush << std::endl; // print the hostname after the game name + version
 	Core.bInteractiveShell = false; // set the in-game shell interaction bool to false (default)
 	Core.init();
 	Core.boot();
@@ -30,20 +30,20 @@ int main() {
 	return 0;
 }
 
-void core::iterateOverString(string &playerMsg, int s, int long ns) {
+void core::iterateOverString(std::string &playerMsg, int s, int long ns) {
 	struct timespec ts = { s, ns };
 	for(long unsigned int i = 0; i < playerMsg.size(); i++)
 	{
-		cout << playerMsg[i] << flush; // <3 from @simonSlamka to @aleksandrazb for solving this one :3 this method was her idea
+		std::cout << playerMsg[i] << std::flush; // <3 from @simonSlamka to @aleksandrazb for solving this one :3 this method was her idea
 		nanosleep(&ts, NULL);
 	}
 }
 
-int core::evaluateCmdInput(string cmdInputUnprocessed)
+int core::evaluateCmdInput(std::string cmdInputUnprocessed)
 {
-	string cmdDivision;
-	string base;
-	string arg;
+	std::string cmdDivision;
+	std::string base;
+	std::string arg;
 	for(auto c : cmdInputUnprocessed)
 	{
 		if(c == ' ')
@@ -61,7 +61,7 @@ int core::evaluateCmdInput(string cmdInputUnprocessed)
 		swap(base, arg);
 	}
 
-	string cmdInput = base + arg;
+	std::string cmdInput = base + arg;
 	const char* cmdInputChar = cmdInput.c_str();
 
 	const char* baseChar = base.c_str();
@@ -92,7 +92,7 @@ int core::evaluateCmdInput(string cmdInputUnprocessed)
 			// do nothing
 			break;
 		default:
-			cerr << "ongashell: command not found: " << cmdInputChar << endl;
+			std::cerr << "ongashell: command not found: " << cmdInputChar << std::endl;
 			return -1;
 			break;
 	};
@@ -101,31 +101,31 @@ int core::evaluateCmdInput(string cmdInputUnprocessed)
 
 int core::help()
 {
-	cout << "TermOS help table\n";
-	cout << "-----------------\n";
-	cout << "\n";
-	cout << "help - print this help table\n";
-	cout << "ls - list directory contents\n";
-	cout << "cd <directory> - change directory\n";
-	cout << "cp - copy files\n";
-	cout << "scp <source> <target> - OpenSSH secure file copy\n";
-	cout << "rm - remove files\n";
-	cout << "scan - seach for nearby WAPs\n";
-	cout << "ifconfig - display information about a network interface\n";
-	cout << "iwconfig - display information about a wireless network interface\n";
-	cout << "whoami - print effective userid\n";
-	cout << "uptime - tell how long the system has been running\n";
-	cout << "lshw - list hardware\n";
-	cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
-	cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
-	cout << "set_target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
-	cout << "execute - run a configured attack";
-	//cout << "email <email address> - send an email to an email address";
-	cout << "poweroff - power-off the machine";
-	cout << "lsgameinfo - list info about this game build";
-	cout << "exit - cause normal process termination\n";
-	cout << "\n";
-	cout << "\n";
+	std::cout << "TermOS help table\n";
+	std::cout << "-----------------\n";
+	std::cout << "\n";
+	std::cout << "help - print this help table\n";
+	std::cout << "ls - list directory contents\n";
+	std::cout << "cd <directory> - change directory\n";
+	std::cout << "cp - copy files\n";
+	std::cout << "scp <source> <target> - OpenSSH secure file copy\n";
+	std::cout << "rm - remove files\n";
+	std::cout << "scan - seach for nearby WAPs\n";
+	std::cout << "ifconfig - display information about a network interface\n";
+	std::cout << "iwconfig - display information about a wireless network interface\n";
+	std::cout << "whoami - print effective userid\n";
+	std::cout << "uptime - tell how long the system has been running\n";
+	std::cout << "lshw - list hardware\n";
+	std::cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
+	std::cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
+	std::cout << "set_target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
+	std::cout << "execute - run a configured attack";
+	//std::cout << "email <email address> - send an email to an email address";
+	std::cout << "poweroff - power-off the machine";
+	std::cout << "lsgameinfo - list info about this game build";
+	std::cout << "exit - cause normal process termination\n";
+	std::cout << "\n";
+	std::cout << "\n";
 	return 0;
 }
 
@@ -134,11 +134,11 @@ int core::whoami(const char* arg)
 	const char* m = arg;
 	if(strcmp(m, "") == 0)
 	{
-		cout << "j3ff\n";
+		std::cout << "j3ff\n";
 	}
 	else
 	{
-		cout << "whoami: extra operand '" << m << "'\n";
+		std::cout << "whoami: extra operand '" << m << "'\n";
 	}
 	return 0;
 }
@@ -147,8 +147,8 @@ void core::spawnShell(core& Core)
 {
 	while(Core.bInteractiveShell)
 	{
-		cout << "$ ";
-		getline(cin, cmdInput); // !!! WARN: DO NOT use cin >> var; in here, it WILL NOT work, because std::cin stops reading at whitespace !!!
+		std::cout << "$ ";
+		std::getline(std::cin, cmdInput); // !!! WARN: DO NOT use cin >> var; in here, it WILL NOT work, because std::cin stops reading at whitespace !!!
 		Core.evaluateCmdInput(cmdInput);
 		const char* cmdInputChar = cmdInput.c_str();
 		if(strcmp(cmdInputChar, "exit") == 0)
@@ -176,26 +176,26 @@ void core::init() {
 }
 
 void core::boot() {
-	cout << "\033]0;" << "Terminal" << "\007";
+	std::cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
-	cout << "Booting ...\n\n";
+	std::cout << "Booting ...\n\n";
 	sleep(2);
 	system("printf '[\e[32mOK\e[0m] Mounting the root filesystem ...\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(2);
 	system("printf '[\e[32mOK\e[0m] Running /sbin/init ...\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(1);
 	system("printf '[\e[32mOK\e[0m] Starting runlevel programs ...\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(1);
-	ifstream f("/opt/ongakken/terminalInsanity/dmesg");
+	std::ifstream f("/opt/ongakken/terminalInsanity/dmesg");
 	if (f.is_open()) {
-	cout << f.rdbuf();
+	std::cout << f.rdbuf();
 	}
-	cout << "\n";
+	std::cout << "\n";
 	system("printf '[\e[31mFAIL\e[0m] Scanning for friendly network devices ...\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(4);
 	system("printf '[\e[32mOK\e[0m] Running post-boot runlevel subroutine 'readme' ...'");
 	sleep(1);
@@ -203,44 +203,44 @@ void core::boot() {
 }
 
 void core::lvl1() {
-	cout << "\033]0;" << "Terminal" << "\007";
+	std::cout << "\033]0;" << "Terminal" << "\007";
 	system("paplay /opt/ongakken/terminalInsanity/sounds/incoming.wav &");
 	system("clear");
 	sleep(3);
-	cout << "IRC channel connection established\n\n";
-	cout << "------------------------------------";
-	cout << "\n";
-	cout << "\n\n";
+	std::cout << "IRC channel connection established\n\n";
+	std::cout << "------------------------------------";
+	std::cout << "\n";
+	std::cout << "\n\n";
 	sleep(3);
 	system("printf '\e[34mJason:\e[0m we need to figure something out ...\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(4);
 	system("printf '\e[95mMark:\e[0m agreed, we cannot just sit and do nothin\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(6);
 	system("printf '\e[34mJason:\e[0m where is J3ff btw?\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(3);
 	system("printf '\e[95mMark:\e[0m idk\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Hey guys");
 	iterateOverString(playerMsg, 0, 100000000);
-	cout << "\n\n";
+	std::cout << "\n\n";
 	sleep(6);
 	system("printf '\e[95mMark:\e[0m nice of you to finally show up..\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(1);
 	system("printf '\e[34mJason:\e[0m hey man\n'");
 	sleep(7);
 	system("printf '\e[34mJason:\e[0m we were just discussing the plan\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(3);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" So how are we gonna do it?");
 	iterateOverString(playerMsg, 0, 100000000);
-	cout << "\n\n";
+	std::cout << "\n\n";
 	sleep(9);
 	system("printf '\e[95mMark:\e[0m well, for starters, we need more people.\n'");
 	sleep(7);
@@ -249,28 +249,28 @@ void core::lvl1() {
 	system("printf '\e[95mMark:\e[0m i have an idea, but it requires putting aurora up to a difficult recursive search task\n'");
 	sleep(12);
 	system("printf '\e[95mMark:\e[0m so j3ff, do i have your permission to access her and run the code i wrote?\n'");
-	cout << "\n";
+	std::cout << "\n";
 	sleep(4);
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Alright, try it. We need this to happen.\n");
 	iterateOverString(playerMsg, 0, 100000000);
-	cout << "\n\n";
+	std::cout << "\n\n";
 	sleep(5);
 	system("printf '\e[95mMark:\e[0m roger. on it\n'");
-	cout << "\n\n";
+	std::cout << "\n\n";
 	sleep(4);
 	system("printf '%s' '\e[33mA week later ...\e[0m\n' | pv -qL 3"); // I'm keeping the 'pv' approach here just in case, so we'll know how to use it later
-	cout << "\n\n";
+	std::cout << "\n\n";
 	sleep(2);
 }
 
 void core::lvl2(core& Core)
 {
-	cout << "\033]0;" << "Terminal" << "\007";
+	std::cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
 	Core.bInteractiveShell = true;
 	Core.spawnShell(Core);
-	cout << "\n";
+	std::cout << "\n";
 	system("printf '%s' '\e[32mDaily log, Oct. 10, 2022 ...\e[0m\n' | pv -qL 6");
 	sleep(2);
 	playerMsg = (" I haven't been feeling like myself lately. I don't know.\n");
