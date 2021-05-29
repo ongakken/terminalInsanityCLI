@@ -18,9 +18,8 @@ uint64_t constexpr hashIt(const char* m)
 
 int main() {
 	core Core; // instantiate a 'Core' object of the 'core' class
-	host hJ3ff;
-	user J3ff;
-	J3ff.username = "J3ff";
+	host hJ3ff("J3ff", "127.0.0.1");
+	user J3ff("J3ff", 10000);
 	char hostname[HOST_NAME_MAX + 1]; // define a char var 'hostname' with the max_len of 65 bytes;
 	gethostname(hostname, HOST_NAME_MAX + 1); // use the gethostname() system call from unistd.h to get the current local machine's hostname
 	std::cout << "Terminal Insanity 0.00.1 @ " << hostname << std::flush << std::endl; // print the hostname after the game name + version
@@ -79,7 +78,7 @@ int host::evaluateCmdInput(std::string cmdInputUnprocessed, user& User)
 			switch(hashIt(argChar))
 			{
 				case hashIt(""):
-					Core.whoami(User); // we need to dynamically look up the current username from the instantiated user class object and then print it's name here
+					Core.whoami(User);
 					break;
 				default:
 					Core.whoami(User, argChar);
@@ -91,6 +90,8 @@ int host::evaluateCmdInput(std::string cmdInputUnprocessed, user& User)
 			break;
 		case hashIt("who"):
 			// code
+			break;
+		case hashIt(""):
 			break;
 		case hashIt("exit"):
 			// do nothing
@@ -123,18 +124,23 @@ int core::help()
 	std::cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
 	std::cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
 	std::cout << "set_target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
-	std::cout << "execute - run a configured attack";
+	std::cout << "execute - run a configured attack\n";
 	//std::cout << "email <email address> - send an email to an email address";
-	std::cout << "poweroff - power-off the machine";
-	std::cout << "lsgameinfo - list info about this game build";
+	std::cout << "poweroff - power-off the machine\n";
+	std::cout << "lsgameinfo - list info about this game build\n";
 	std::cout << "exit - cause normal process termination\n";
-	std::cout << "\n";
 	std::cout << "\n";
 	return 0;
 }
 
 int core::whoami(user& User, const char* arg)
 {
+	const char* usernameChar = User.username.c_str();
+	if(strcmp(usernameChar, "") == 0)
+	{
+		std::cerr << "FATAL ERROR: username N/A, exiting ..." << std::endl;
+		exit(-2);
+	}
 	const char* m = arg;
 	if(strcmp(m, "") == 0)
 	{
@@ -156,6 +162,10 @@ void host::spawnShell(host& Host, user& User)
 		std::getline(std::cin, cmdInput); // !!! WARN: DO NOT use cin >> var; in here, it WILL NOT work, because std::cin stops reading at whitespace !!!
 		Host.evaluateCmdInput(cmdInput, User);
 		const char* cmdInputChar = cmdInput.c_str();
+		//if(strcmp(cmdInputChar, "") == 0)
+		//{
+		//	std::cout << "\n";
+		//}
 		if(strcmp(cmdInputChar, "exit") == 0)
 		{
 			bInteractiveShell = false;

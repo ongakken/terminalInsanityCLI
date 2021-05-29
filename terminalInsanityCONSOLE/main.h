@@ -6,6 +6,7 @@
 #include <unistd.h> // cinlude the standard POSIX sys lib
 #include <iostream> // standard C++ I/O stream lib, needed for stuff like cout and cin
 #include <fstream> // standard C++ file stream lib, needed for loading, reading writing to or otherwise manipulating files
+#include <cstdlib>
 #include <time.h> // C lib used for nanosleep(2); nanosleep() is obsolete and thus we're switching to nanosleep(2) instead
 #include <stdlib.h>
 #include <limits.h>
@@ -14,13 +15,24 @@
 class user // this base class will handle all usable users within the game, incl. the player's user, 'j3ff'
 {
 public:
-	int uid;
+	user(std::string username_in, int uid_in)
+	{
+		username = username_in;
+		uid = uid_in;
+
+	}
 	std::string username;
+	int uid;
 };
 
 class host // this class is the base class for all the individual in-game machines which the player will have access to
 {
 public:
+	host(std::string hostname_in, std::string IPaddr_in)
+	{
+		hostname = hostname_in;
+		IPaddr = IPaddr_in;
+	}
 	void spawnShell(host& Host, user& User);
 	int evaluateCmdInput(std::string cmdInputUnprocessed, user& User); // this method  takes the command input from the player and checks if that command literal exists; if it does, it runs it, if not, it throws a printf error
 	std::string hostname;
