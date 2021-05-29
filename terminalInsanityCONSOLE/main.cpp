@@ -18,16 +18,18 @@ uint64_t constexpr hashIt(const char* m)
 
 int main() {
 	core Core; // instantiate a 'Core' object of the 'core' class
-	host J3ff;
+	host hJ3ff;
+	user J3ff;
+	J3ff.username = "J3ff";
 	char hostname[HOST_NAME_MAX + 1]; // define a char var 'hostname' with the max_len of 65 bytes;
 	gethostname(hostname, HOST_NAME_MAX + 1); // use the gethostname() system call from unistd.h to get the current local machine's hostname
 	std::cout << "Terminal Insanity 0.00.1 @ " << hostname << std::flush << std::endl; // print the hostname after the game name + version
-	J3ff.bInteractiveShell = false; // set the in-game shell interaction bool to false (default)
+	hJ3ff.bInteractiveShell = false; // set the in-game shell interaction bool to false (default)
 	Core.init();
 	Core.boot();
 	Core.lvl1();
 	Core.boot();
-	Core.lvl2(J3ff); // here we're passing the instantiated object 'Class' to the function lvl2(), which is expecting a pointer to the 'core' class
+	Core.lvl2(hJ3ff, J3ff); // here we're passing the instantiated object 'Class' to the function lvl2(), which is expecting a pointer to the 'core' class
 	return 0;
 }
 
@@ -40,7 +42,7 @@ void core::iterateOverString(std::string &playerMsg, int s, int long ns) {
 	}
 }
 
-int host::evaluateCmdInput(std::string cmdInputUnprocessed)
+int host::evaluateCmdInput(std::string cmdInputUnprocessed, user& User)
 {
 	core Core;
 	std::string cmdDivision;
@@ -77,10 +79,10 @@ int host::evaluateCmdInput(std::string cmdInputUnprocessed)
 			switch(hashIt(argChar))
 			{
 				case hashIt(""):
-					Core.whoami();
+					Core.whoami(User); // we need to dynamically look up the current username from the instantiated user class object and then print it's name here
 					break;
 				default:
-					Core.whoami(argChar);
+					Core.whoami(User, argChar);
 					break;
 			}
 			break;
@@ -131,27 +133,28 @@ int core::help()
 	return 0;
 }
 
-int core::whoami(const char* arg)
+int core::whoami(user& User, const char* arg)
 {
 	const char* m = arg;
 	if(strcmp(m, "") == 0)
 	{
-		std::cout << "j3ff\n";
+		std::cout << User.username << std::endl;
+		return 0;
 	}
 	else
 	{
-		std::cout << "whoami: extra operand '" << m << "'\n";
+		std::cerr << "whoami: extra operand '" << m << "'\n";
+		return -1;
 	}
-	return 0;
 }
 
-void host::spawnShell(host& Host)
+void host::spawnShell(host& Host, user& User)
 {
 	while(Host.bInteractiveShell)
 	{
 		std::cout << "$ ";
 		std::getline(std::cin, cmdInput); // !!! WARN: DO NOT use cin >> var; in here, it WILL NOT work, because std::cin stops reading at whitespace !!!
-		Host.evaluateCmdInput(cmdInput);
+		Host.evaluateCmdInput(cmdInput, User);
 		const char* cmdInputChar = cmdInput.c_str();
 		if(strcmp(cmdInputChar, "exit") == 0)
 		{
@@ -256,7 +259,7 @@ void core::lvl1() {
 	system("printf '%s' '\e[36mJ3ff:\e[0m'");
 	playerMsg = (" Alright, try it. We need this to happen.\n");
 	iterateOverString(playerMsg, 0, 100000000);
-	std::cout << "\n\n";
+	std::cout << "\n";
 	sleep(5);
 	system("printf '\e[95mMark:\e[0m roger. on it\n'");
 	std::cout << "\n\n";
@@ -266,12 +269,12 @@ void core::lvl1() {
 	sleep(2);
 }
 
-void core::lvl2(host& J3ff)
+void core::lvl2(host& hJ3ff, user& J3ff)
 {
 	std::cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
-	J3ff.bInteractiveShell = true;
-	J3ff.spawnShell(J3ff);
+	hJ3ff.bInteractiveShell = true;
+	hJ3ff.spawnShell(hJ3ff, J3ff);
 	std::cout << "\n";
 	system("printf '%s' '\e[32mDaily log, Oct. 10, 2022 ...\e[0m\n' | pv -qL 6");
 	sleep(2);
