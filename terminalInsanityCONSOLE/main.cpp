@@ -39,7 +39,7 @@ void core::iterateOverString(string &playerMsg, int s, int long ns) {
 	}
 }
 
-void core::evaluateCmdInput(string cmdInputUnprocessed)
+int core::evaluateCmdInput(string cmdInputUnprocessed)
 {
 	string cmdDivision;
 	string base;
@@ -92,9 +92,11 @@ void core::evaluateCmdInput(string cmdInputUnprocessed)
 			// do nothing
 			break;
 		default:
-			cout << "ongashell: command not found: " << cmdInputChar << endl;
+			cerr << "ongashell: command not found: " << cmdInputChar << endl;
+			return -1;
 			break;
 	};
+	return 0;
 }
 
 int core::help()

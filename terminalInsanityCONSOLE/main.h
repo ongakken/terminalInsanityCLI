@@ -32,6 +32,7 @@ public:
 
 class root : public user // this subclass is the root users class and will have some special, root-only methods available
 {
+	int uid = 0; // superuser's UID is always 0
 private:
 	// private properties
 
@@ -75,7 +76,7 @@ public: //I know, I know, encapsulation ... well, in this case, it isn't exactly
 
 	//// methods
 	void iterateOverString(string &playerMsg, int s, int long ns); // a method to iterate through a "msg" string and print out characters divided by an 's' amount of sleep (in seconds)
-	void evaluateCmdInput(string cmdInputUnprocessed); // this method  takes the command input from the player and checks if that command literal exists; if it does, it runs it, if not, it throws a printf error
+	int evaluateCmdInput(string cmdInputUnprocessed); // this method  takes the command input from the player and checks if that command literal exists; if it does, it runs it, if not, it throws a printf error
 
 	////////////////////////////////////////////////////////////////////
 
