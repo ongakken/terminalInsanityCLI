@@ -112,10 +112,10 @@ int core::help()
 	std::cout << "help - print this help table\n";
 	std::cout << "ls - list directory contents\n";
 	std::cout << "cd <directory> - change directory\n";
-	std::cout << "cp - copy files\n";
+	std::cout << "cp <source> <target> - copy files\n";
 	std::cout << "scp <source> <target> - OpenSSH secure file copy\n";
-	std::cout << "rm - remove files\n";
-	std::cout << "scan - seach for nearby WAPs\n";
+	std::cout << "rm <file> - remove files\n";
+	std::cout << "scan - search for nearby WAPs\n";
 	std::cout << "ifconfig - display information about a network interface\n";
 	std::cout << "iwconfig - display information about a wireless network interface\n";
 	std::cout << "whoami - print effective userid\n";
@@ -124,7 +124,7 @@ int core::help()
 	std::cout << "nmap <destination IP>/<mask> - network exploration tool and security / port scanner\n";
 	std::cout << "aircrack-ng set target <SSID> - set a WAP as a target for cracking\n";
 	std::cout << "set_target <local IP> <open port> - set a machine on the local network with an open port as a target\n";
-	std::cout << "execute - run a configured attack\n";
+	std::cout << "execute - run a previously configured attack\n";
 	//std::cout << "email <email address> - send an email to an email address";
 	std::cout << "poweroff - power-off the machine\n";
 	std::cout << "lsgameinfo - list info about this game build\n";
@@ -175,6 +175,7 @@ void host::spawnShell(host& Host, user& User)
 }
 
 void core::init() {
+	system("wmctrl -r ':ACTIVE:' -b add,fullscreen");
 	system("/usr/bin/zsh -c '[ -d /opt/ongakken/terminalInsanity ] && [ -d /opt/ongakken/terminalInsanity/sounds ] && [ -d /opt/ongakken/terminalInsanity/img ] && printf '\a''");
 	sleep(1);
 	system("grep 'zsh' /etc/shells >> /dev/null && printf '\a'");
