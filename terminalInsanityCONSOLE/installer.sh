@@ -17,13 +17,12 @@ mkdir -p /opt/ongakken/terminalInsanity/img
 mkdir -p /opt/ongakken/terminalInsanity/OST
 chmod -R 700 /opt/ongakken
 chown -R $currentUser: /opt/ongakken
-mv sounds/incoming.wav /opt/ongakken/terminalInsanity/sounds
-mv sounds/intro.mid /opt/ongakken/terminalInsanity/sounds
-apt-get install zsh kitty expect -qq > /dev/null
-#su - $currentUser -c cargo install viu && viu /opt/ongakken/logo.png
-su - $currentUser -c 'curl https://get.wasmer.io -sSfL | sh' > /dev/null
-su - $currentUser -c 'source /home/'$currentUser'/.wasmer/wasmer.sh' > /dev/null
-su - $currentUser -c '/home/'$currentUser'/.wasmer/bin/wapm install -g viu' > /dev/null
+cp sounds/incoming.wav /opt/ongakken/terminalInsanity/OST &> /dev/null
+cp sounds/intro.wav /opt/ongakken/terminalInsanity/sounds &> /dev/null
+cp img/logo.png /opt/ongakken/ &> /dev/null
+cp viu /opt/ongakken/terminalInsanity/ &> /dev/null
+cp game /opt/ongakken/terminalInsanity &> /dev/null
+apt-get install zsh kitty expect pv -qq > /dev/null
 echo "DISABLE_AUTO_TITLE='true'" >> /home/$currentUser/.zshrc && source /home/$currentUser/.zshrc
 echo -e '\n'
 echo -e "\e[2mInstallation finished. Game ready. Make it executable and run it to begin.\e[0m"

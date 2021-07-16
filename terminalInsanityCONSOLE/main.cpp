@@ -22,7 +22,7 @@ int main() {
 	user J3ff("J3ff", 10000);
 	char hostname[HOST_NAME_MAX + 1]; // define a char var 'hostname' with the max_len of 65 bytes;
 	gethostname(hostname, HOST_NAME_MAX + 1); // use the gethostname() system call from unistd.h to get the current local machine's hostname
-	std::cout << "Terminal Insanity 0.00.1 @ " << hostname << std::flush << std::endl; // print the hostname after the game name + version
+	std::cout << "Terminal Insanity 0.0.03 @ " << hostname << std::flush << std::endl; // print the hostname after the game name + version
 	hJ3ff.bInteractiveShell = false; // set the in-game shell interaction bool to false (default)
 	Core.init();
 	Core.boot();
@@ -91,6 +91,9 @@ int host::evaluateCmdInput(std::string cmdInputUnprocessed, user& User)
 		case hashIt("who"):
 			// code
 			break;
+		case hashIt("lsgameinfo"):
+			Core.lsgameinfo();
+			break;
 		case hashIt(""):
 			break;
 		case hashIt("exit"):
@@ -154,6 +157,13 @@ int core::whoami(user& User, const char* arg)
 	}
 }
 
+int core::lsgameinfo()
+{
+	std::cout << "Terminal Insanity by Ongakken";
+	std::cout << "Version: 0.0.03";
+	return 0;
+}
+
 void host::spawnShell(host& Host, user& User)
 {
 	while(Host.bInteractiveShell)
@@ -176,6 +186,7 @@ void host::spawnShell(host& Host, user& User)
 
 void core::init() {
 	system("wmctrl -r ':ACTIVE:' -b add,fullscreen");
+	system("PATH=$PATH:/opt/ongakken/terminalInsanity");
 	system("/usr/bin/zsh -c '[ -d /opt/ongakken/terminalInsanity ] && [ -d /opt/ongakken/terminalInsanity/sounds ] && [ -d /opt/ongakken/terminalInsanity/img ] && printf '\a''");
 	sleep(1);
 	system("grep 'zsh' /etc/shells >> /dev/null && printf '\a'");
@@ -220,7 +231,7 @@ void core::boot() {
 
 void core::lvl1() {
 	std::cout << "\033]0;" << "Terminal" << "\007";
-	system("paplay /opt/ongakken/terminalInsanity/sounds/incoming.wav &");
+	system("paplay /opt/ongakken/terminalInsanity/OST/incoming.wav &");
 	system("clear");
 	sleep(3);
 	std::cout << "IRC channel connection established\n\n";
