@@ -17,6 +17,8 @@ mkdir -p /opt/ongakken/terminalInsanity/img
 mkdir -p /opt/ongakken/terminalInsanity/OST
 chmod -R 700 /opt/ongakken
 chown -R $currentUser: /opt/ongakken
+mv sounds/incoming.wav /opt/ongakken/terminalInsanity/sounds
+mv sounds/intro.mid /opt/ongakken/terminalInsanity/sounds
 apt-get install zsh kitty expect -qq > /dev/null
 #su - $currentUser -c cargo install viu && viu /opt/ongakken/logo.png
 su - $currentUser -c 'curl https://get.wasmer.io -sSfL | sh' > /dev/null

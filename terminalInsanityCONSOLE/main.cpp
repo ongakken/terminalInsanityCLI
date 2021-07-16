@@ -180,7 +180,7 @@ void core::init() {
 	sleep(1);
 	system("grep 'zsh' /etc/shells >> /dev/null && printf '\a'");
 	sleep(1);
-	system("./zshVerify >> /dev/null && printf '\a'");
+	system("./zshVerify.sh >> /dev/null && printf '\a'");
 	sleep(1);
 	system("kitty -o allow_remote_control=yes --title OngakkenLogo --listen-on unix:/tmp/terminalInsanity --hold viu /opt/ongakken/logo.png &");
 	system("paplay /opt/ongakken/terminalInsanity/sounds/intro.wav &");
