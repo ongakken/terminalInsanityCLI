@@ -159,8 +159,8 @@ int core::whoami(user& User, const char* arg)
 
 int core::lsgameinfo()
 {
-	std::cout << "Terminal Insanity by Ongakken";
-	std::cout << "Version: 0.0.03";
+	std::cout << "Terminal Insanity by Ongakken" << "\n";
+	std::cout << "Version: 0.0.03" << "\n";
 	return 0;
 }
 
