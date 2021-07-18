@@ -57,29 +57,42 @@ private:
 class file // this is how we'll interact with files
 {
 public:
+	file(const char* name_in, const char* absPath_in, const char* perms_in, bool isDir_in)
+	{
+		name = name_in;
+		absPath = absPath_in;
+		perms = perms_in;
+		isDir = isDir_in;
+	}
 	// remember that Linux is case-sensitive
-	std::string absPath; // the absolute path to a regular file or directory, e.g. /home/simtoon/. When dealing with a directory, the abs. path stands for the location of the dir, so if the dir is Desktop, then /home/simtoon means that the dir is in /home/simtoon/Desktop
-	int perms; // Unix-defined permissions notation in the int format, e.g. 755, 700, 777 or whatever. Prototype: owner:group:others
+	const char* name;
+	const char* absPath; // the absolute path to a regular file or directory, e.g. /home/simtoon/. When dealing with a directory, the abs. path stands for the location of the dir, so if the dir is Desktop, then /home/simtoon means that the dir is in /home/simtoon/Desktop
+	const char* perms; // Unix-defined permissions notation in the letter format, e.g. rwxrwxrwx, drw---x---, 777 or whatever. Prototype: owner:group:others
 	std::string owner; // ls -l, file owner
+	bool isDir; // is this file a directory?
 	bool isDev; // is this file a device? notice that we only differentiate between regular files and dirs - we do not need special files, sockets, or symlinks in this game
 };
 
-class directory : public file // this class is a child class of file because everything in Linux is a file under the hood, including directories
-{
-public:
-	std::string absPath; // the absolute path of this dir, e.g. /var/log
-	bool canList;
-	bool canAccess;
-};
+// this class is disabled for the time being since I decided we're gonna try and utilize only the file class for reasons you should already be aware of
+
+// class directory : public file // this class is a child class of file because everything in Linux is a file under the hood, including directories
+// {
+// public:
+// 	std::string absPath; // the absolute path of this dir, e.g. /var/log
+// 	bool canList;
+// 	bool canAccess;
+// };
 
 class core
 {
 public: //I know, I know, encapsulation ... well, in this case, it isn't exactly neccesarry, so I won't do it. Maybe later.
+
 	////////// core vars and methods that run the game itself //////////
 
 	//// vars
-	std::string gameVersion;
+	std::string gameVersion; // current game build number (since this is a small-scale project we use the same number for both version and build ID)
 	std::string playerMsg; // a string to be iterated over using the iterateOverString method. when passed, the method will emulate actual human-like typing, thus indicating to the player that they are 'typing'
+	const char* currentDir;
 
 	//// methods
 	void init(); // this method checks the runtime dependencies and verifies if all dirs exist; if not, it creates them. we also play the intro seq here
@@ -87,6 +100,7 @@ public: //I know, I know, encapsulation ... well, in this case, it isn't exactly
 	void lvl1(); // level methods -- these run code relevant for each level of the game
 	void lvl2(host& hJ3ff, user& J3ff);
 	void iterateOverString(std::string& playerMsg, int s, int long ns); // a method to iterate through a "msg" string and print out characters divided by an 's' amount of sleep (in seconds)
+	void makeCoreDirs(); // instatiate all (not all, because there's many; just the ones we'll come into contact with) the dirs we need in a basic Linux system
 
 	////////////////////////////////////////////////////////////////////
 
@@ -95,10 +109,11 @@ public: //I know, I know, encapsulation ... well, in this case, it isn't exactly
 
 	int help(); // this method prints the TermOS help table to assist the players in navigating the game. a lot like an actual manual for a game, but considerably more confusing
 	int ls();
-	int cd(directory dir);
-	int cp(file file, directory dir);
-	int scp(file file, directory dir);
+	int cd(file dir);
+	int cp(/**/);
+	int scp(/**/);
 	int rm(file file);
+	int mkdir(const char* name); // the input is the name of the new dir
 	int scan();
 	int ifconfig();
 	int iwconfig();

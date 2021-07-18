@@ -23,7 +23,7 @@ cp img/logo.png /opt/ongakken/ &> /dev/null
 cp viu /opt/ongakken/terminalInsanity/ &> /dev/null
 cp game /opt/ongakken/terminalInsanity &> /dev/null
 apt-get install zsh kitty expect pv -qq > /dev/null
-echo "DISABLE_AUTO_TITLE='true'" >> /home/$currentUser/.zshrc && source /home/$currentUser/.zshrc
+#echo "DISABLE_AUTO_TITLE='true'" >> /home/$currentUser/.zshrc && source /home/$currentUser/.zshrc
 echo -e '\n'
 echo -e "\e[2mInstallation finished. Game ready. Make it executable and run it to begin.\e[0m"
 echo -e '\n'

@@ -85,6 +85,16 @@ int host::evaluateCmdInput(std::string cmdInputUnprocessed, user& User)
 					break;
 			}
 			break;
+		case hashIt("mkdir"):
+			switch(hashIt(argChar))
+			{
+				case hashIt(""):
+					std::cerr << "mkdir: missing operand" << "\n";
+					break;
+				default:
+					Core.mkdir(argChar);
+					break;
+			}
 		case hashIt("help"):
 			Core.help();
 			break;
@@ -107,6 +117,11 @@ int host::evaluateCmdInput(std::string cmdInputUnprocessed, user& User)
 	return 0;
 }
 
+void core::makeCoreDirs()
+{
+
+}
+
 int core::help()
 {
 	std::cout << "TermOS help table\n";
@@ -118,6 +133,7 @@ int core::help()
 	std::cout << "cp <source> <target> - copy files\n";
 	std::cout << "scp <source> <target> - OpenSSH secure file copy\n";
 	std::cout << "rm <file> - remove files\n";
+	std::cout << "mkdir <dir> - make directories\n";
 	std::cout << "scan - search for nearby WAPs\n";
 	std::cout << "ifconfig - display information about a network interface\n";
 	std::cout << "iwconfig - display information about a wireless network interface\n";
@@ -155,6 +171,12 @@ int core::whoami(user& User, const char* arg)
 		std::cerr << "whoami: extra operand '" << m << "'\n";
 		return -1;
 	}
+}
+
+int core::mkdir(const char* name)
+{
+	file Dir(name, currentDir, "", true);
+	return 0;
 }
 
 int core::lsgameinfo()
