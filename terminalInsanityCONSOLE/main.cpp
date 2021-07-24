@@ -264,7 +264,7 @@ void core::lvl1() {
 	system("printf '\e[34mJason:\e[0m we need to figure something out ...\n'");
 	std::cout << "\n";
 	sleep(4);
-	system("printf '\e[95mMark:\e[0m agreed, we cannot just sit and do nothin\n'");
+	system("printf '\e[95mMark:\e[0m agreed, we cannot just sit and do nothing\n'");
 	std::cout << "\n";
 	sleep(6);
 	system("printf '\e[34mJason:\e[0m where is J3ff btw?\n'");
@@ -317,8 +317,8 @@ void core::lvl2(host& hJ3ff, user& J3ff)
 {
 	std::cout << "\033]0;" << "Terminal" << "\007";
 	system("clear");
-	hJ3ff.bInteractiveShell = true;
-	hJ3ff.spawnShell(hJ3ff, J3ff);
+	//hJ3ff.bInteractiveShell = true;
+	//hJ3ff.spawnShell(hJ3ff, J3ff);
 	std::cout << "\n";
 	system("printf '%s' '\e[32mDaily log, Oct. 10, 2022 ...\e[0m\n' | pv -qL 6");
 	sleep(2);
@@ -337,10 +337,17 @@ void core::lvl2(host& hJ3ff, user& J3ff)
 	playerMsg = (" but I realize that we need to help them. If what they think is coming is correct,\n it's our civic duty to try and prevent it\n");
 	iterateOverString(playerMsg, 0, 110000000);
 	sleep(1);
-	playerMsg = (" I told  Mark to run the code he wrote, so we'll see where that leads to. We need to move ...\n");
+	playerMsg = (" I told Mark to run the code he wrote, so we'll see where that leads to. We need to move ...\n");
 	iterateOverString(playerMsg, 0, 120000000);
 	sleep(2);
-	playerMsg = (" alright, I gotta go. I'll add to this log if there's anything important to write down later on. See you\n");
+	playerMsg = (" alright, I gotta go. I'll append to this log if there's anything important to write down later on. See you\n");
 	iterateOverString(playerMsg, 0, 100000000);
 	sleep(3);
+	std::cout << "." << '\n';
+	sleep(1);
+	std::cout << "." << '\n';
+	sleep(1);
+	std::cout << "." << '\n';
+	sleep(1);
+
 }
