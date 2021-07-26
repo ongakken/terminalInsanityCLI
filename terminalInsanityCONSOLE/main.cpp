@@ -343,6 +343,7 @@ void core::lvl2(host& hJ3ff, user& J3ff)
 	playerMsg = (" alright, I gotta go. I'll append to this log if there's anything important to write down later on. See you\n");
 	iterateOverString(playerMsg, 0, 100000000);
 	sleep(3);
+	std::cout << '\n';
 	std::cout << "." << '\n';
 	sleep(1);
 	std::cout << "." << '\n';
