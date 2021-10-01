@@ -1,4 +1,4 @@
-﻿// © Copyright 2021 Ongakken s.r.o. All rights reserved.
+﻿// © Copyright 2021 Ongakken s.r.o. and Ongakken Denmark - All rights reserved.
 //   Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
 //   Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
 
@@ -6,12 +6,12 @@
 
 // using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
-uint64_t constexpr mix(char m, uint64_t s)
+uint64_t constexpr mix(char m, uint64_t s) // credit to @aleksandrazb for finding this method
 {
 	return ((s << 7) + ~(s >> 3)) + ~m;
 }
 
-uint64_t constexpr hashIt(const char* m)
+uint64_t constexpr hashIt(const char* m) // again, credit to @aleksandrazb for finding this method
 {
 	return (*m) ? mix(*m, hashIt(m + 1)) : 0;
 }
