@@ -1,6 +1,11 @@
-﻿// © Copyright 2021 Ongakken s.r.o. and Ongakken Denmark - All rights reserved.
-//   Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
-//   Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
+﻿/* © Copyright 2021 Ongakken s.r.o. and Ongakken Denmark - All rights reserved.
+	 Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
+Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
+
+this source file includes comments other than those that you would expect in a software project
+since I am writing this as a single developer with no foreseeable collaboration, I allowed myself to use this as a diary
+I did something similar with "Imaginator", a game I've been working on a couple of years ago
+*/
 
 #include "main.h"
 
