@@ -1,15 +1,14 @@
-﻿/* © Copyright 2021 Ongakken s.r.o. and Ongakken Denmark - All rights reserved.
-	 Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン, the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
-Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
+﻿/*  © Copyright 2021 Ongakken s.r.o. (Slovakia) and Simtoon Underholdning (Denmark) - All rights reserved.
+	Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン,
+	the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
+	Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
 
-this source file includes comments other than those that you would expect in a software project
-since I am writing this as a single developer with no foreseeable collaboration, I allowed myself to use this as a diary
-I did something similar with "Imaginator", a game I've been working on a couple of years ago
+	this source file includes comments other than those that you would expect in a software project
+	since I am writing this as a single developer with no foreseeable collaboration, I allowed myself to use this as a diary
+	I did something similar with "Imaginator", a game I worked on a couple of years ago
 */
 
 #include "main.h"
-
-// using namespace std; //standard namespace for using cout, cin and some other without defining the namespace they're in (std::cout)
 
 uint64_t constexpr mix(char m, uint64_t s) // credit to @aleksandrazb for finding this method
 {
@@ -25,7 +24,7 @@ int main() {
 	core Core; // instantiate a 'Core' object of the 'core' class
 	host hJ3ff("J3ff", "127.0.0.1");
 	user J3ff("J3ff", 10000);
-	char hostname[HOST_NAME_MAX + 1]; // define a char var 'hostname' with the max_len of 65 bytes;
+	char hostname[HOST_NAME_MAX + 1]; // declare a char var 'hostname' with the max_len of 65 bytes;
 	gethostname(hostname, HOST_NAME_MAX + 1); // use the gethostname() system call from unistd.h to get the current local machine's hostname
 	std::cout << "Terminal Insanity 0.0.03 @ " << hostname << std::flush << std::endl; // print the hostname after the game name + version
 	hJ3ff.bInteractiveShell = false; // set the in-game shell interaction bool to false (default)
