@@ -1,4 +1,4 @@
-﻿/*  © Copyright 2021 Ongakken s.r.o. (Slovakia) and Simtoon Underholdning (Denmark) - All rights reserved.
+﻿/*  © Copyright 2021 - 2022 Ongakken s.r.o. (Slovakia) and Simtoon Underholdning (Denmark) - All rights reserved.
 	Terminal Insanity, Ongakken, the alternative names オンガッケン,  オンがッけン,
 	the Ongakken logo, the Ongakken symbol, the Ongakken pattern are trademarks of Ongakken s.r.o.
 	Based on a 2016 videogame 'Terminal Insanity' by Simon Slamka
