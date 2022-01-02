@@ -260,7 +260,7 @@ void core::lvl1() {
 	system("paplay /opt/ongakken/terminalInsanity/OST/incoming.wav &");
 	system("clear");
 	sleep(3);
-	std::cout << "IRC channel connection established\n\n";
+	std::cout << "Dissonance channel connection established\n\n";
 	std::cout << "------------------------------------";
 	std::cout << "\n";
 	std::cout << "\n\n";
